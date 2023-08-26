@@ -18,11 +18,24 @@ import time
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 # Channel Access Token
-line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
+# line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 # Channel Secret
-handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
+# handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 # OPENAI API Key初始化設定
 openai.api_key = os.getenv('OPENAI_API_KEY')
+
+# get channel_secret and channel_access_token from your environment variable
+channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+handler = WebhookHandler(channel_secret)
+channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+if channel_secret is None:
+print('Specify LINE_CHANNEL_SECRET as environment variable.')
+sys.exit(1)
+if channel_access_token is None:
+print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+sys.exit(1)
+line_bot_api = LineBotApi(channel_access_token)
+# parser = WebhookParser(channel_secret)
 
 
 def GPT_response(text):
