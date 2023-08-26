@@ -27,7 +27,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
 handler = WebhookHandler(channel_secret)
-channel_access_token = os.getenv('LINE_ACCESS_TOKEN', None)
+channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
 if channel_secret is None:
     print('Specify LINE_CHANNEL_SECRET as environment variable.')
     sys.exit(1)
